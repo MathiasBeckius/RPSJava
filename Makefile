@@ -1,10 +1,14 @@
 APP_NAME=RockPaperScissors
 
+SRC_DIR=src
+OUTPUT_DIR=.output
+
 clean:
-	@rm -f *.class
+	@rm -rf $(OUTPUT_DIR)
 
 build:
-	@javac $(APP_NAME).java
+	@mkdir -p $(OUTPUT_DIR)
+	@javac $(SRC_DIR)/*.java -d $(OUTPUT_DIR)
 
 run: clean build
-	@java $(APP_NAME)
+	@java -classpath $(OUTPUT_DIR) $(APP_NAME)
