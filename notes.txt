@@ -1,0 +1,7 @@
+Polymorphism
+
+null is not a good information carrier - don't use it as return values!
+Therefore, we are not checking for null.
+
+Keep number of if-statements to a minimum, and avoid if-else!
+=> Less complexity!
