@@ -1,3 +1,5 @@
+package rockpaperscissors;
+
 public interface HandShape
 {
     public String name();

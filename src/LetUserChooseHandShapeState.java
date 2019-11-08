@@ -1,3 +1,6 @@
+import rockpaperscissors.Game;
+import rockpaperscissors.HandShape;
+
 public class LetUserChooseHandShapeState extends State
 {
     private HandShapeMapping mapping;
@@ -21,7 +24,7 @@ public class LetUserChooseHandShapeState extends State
         {
             return this;
         }
-        HandShape opponentsHand = (new RandomizedShape()).shape();
+        HandShape opponentsHand = RandomShape.shape();
         this.game = this.game.evaluate(playersHand, opponentsHand);
         return new PresentResultState(this.ui, this.game);
     }

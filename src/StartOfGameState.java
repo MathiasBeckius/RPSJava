@@ -1,3 +1,5 @@
+import rockpaperscissors.Game;
+
 public class StartOfGameState extends State
 {
     public StartOfGameState(TerminalUI ui)

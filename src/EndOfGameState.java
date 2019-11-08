@@ -1,3 +1,6 @@
+import rockpaperscissors.Game;
+import rockpaperscissors.Tally;
+
 public class EndOfGameState extends State
 {
     public EndOfGameState(TerminalUI ui, Game game)
@@ -7,15 +10,15 @@ public class EndOfGameState extends State
 
     public State run()
     {
-        this.ui.show(this.message(this.game.tally().score()));
+        this.ui.show(this.message(this.game.tally()));
         return new TerminateGameState();
     }
 
-    private String message(Score score)
+    private String message(Tally tally)
     {
         return String.format(
             "%s\n\nEnd of game!\n",
-            this.result(score.player1(), score.player2())
+            this.result(tally.scorePlayer1(), tally.scorePlayer2())
         );
     }
 

@@ -1,3 +1,5 @@
+import rockpaperscissors.Game;
+
 public abstract class State
 {
     protected TerminalUI ui;

@@ -1,4 +1,6 @@
 import java.util.Hashtable;
+import rockpaperscissors.HandShapes;
+import rockpaperscissors.HandShape;
 
 public class HandShapeMapping
 {
@@ -7,9 +9,9 @@ public class HandShapeMapping
     public HandShapeMapping(String rock, String paper, String scissors)
     {
         this.mapTable = new Hashtable<String, HandShape>();
-        this.mapTable.put(rock, new Rock());
-        this.mapTable.put(paper, new Paper());
-        this.mapTable.put(scissors, new Scissors());
+        this.mapTable.put(rock, HandShapes.rock());
+        this.mapTable.put(paper, HandShapes.paper());
+        this.mapTable.put(scissors, HandShapes.scissors());
     }
 
     public HandShape mapToShape(String key)

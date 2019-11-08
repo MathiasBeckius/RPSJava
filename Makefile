@@ -8,7 +8,8 @@ clean:
 
 build:
 	@mkdir -p $(OUTPUT_DIR)
-	@javac $(SRC_DIR)/*.java -d $(OUTPUT_DIR)
+	@javac $(SRC_DIR)/rockpaperscissors/*.java -d $(OUTPUT_DIR)
+	@javac $(SRC_DIR)/*.java -d $(OUTPUT_DIR) -classpath $(PWD)/$(OUTPUT_DIR):$(PWD)/$(OUTPUT_DIR)/rockpaperscissors
 
 run: clean build
 	@java -classpath $(OUTPUT_DIR) $(APP_NAME)

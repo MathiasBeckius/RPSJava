@@ -5,3 +5,6 @@ Therefore, we are not checking for null.
 
 Keep number of if-statements to a minimum, and avoid if-else!
 => Less complexity!
+
+rockpaperscissors package is totally stand-alone - can be used in different versions of the
+game! Create JAR-file??
