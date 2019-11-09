@@ -1,9 +1,7 @@
-/*
- * TODO: introduce boundary to state machine => new class that
- * handles States.
- *  class StateRunner
- *  class StateMachine
- */
+package terminalgame;
+
+import terminalgame.ui.TerminalUI;
+
 public class TerminalGame
 {
     private State state;

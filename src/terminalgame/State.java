@@ -1,6 +1,9 @@
-import rockpaperscissors.Game;
+package terminalgame;
 
-public abstract class State
+import rockpaperscissors.Game;
+import terminalgame.ui.TerminalUI;
+
+abstract class State
 {
     protected TerminalUI ui;
     protected Game game;

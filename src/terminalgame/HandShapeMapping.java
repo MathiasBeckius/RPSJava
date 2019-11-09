@@ -1,8 +1,10 @@
+package terminalgame;
+
 import java.util.Hashtable;
 import rockpaperscissors.HandShapes;
 import rockpaperscissors.HandShape;
 
-public class HandShapeMapping
+class HandShapeMapping
 {
     private Hashtable<String, HandShape> mapTable;
 

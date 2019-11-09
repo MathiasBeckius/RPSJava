@@ -8,3 +8,9 @@ Keep number of if-statements to a minimum, and avoid if-else!
 
 rockpaperscissors package is totally stand-alone - can be used in different versions of the
 game! Create JAR-file??
+
+----------------------------------------------
+
+Move state machine to separate package - what to call it?
+    - StateMachine
+    

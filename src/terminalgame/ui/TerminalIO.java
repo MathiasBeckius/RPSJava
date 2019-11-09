@@ -1,3 +1,5 @@
+package terminalgame.ui;
+
 public interface TerminalIO
 {
     public void clearScreen();

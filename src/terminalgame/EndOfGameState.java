@@ -1,7 +1,10 @@
+package terminalgame;
+
 import rockpaperscissors.Game;
 import rockpaperscissors.Tally;
+import terminalgame.ui.TerminalUI;
 
-public class EndOfGameState extends State
+class EndOfGameState extends State
 {
     public EndOfGameState(TerminalUI ui, Game game)
     {
@@ -10,7 +13,7 @@ public class EndOfGameState extends State
 
     public State run()
     {
-        this.ui.show(this.message(this.game.tally()));
+        this.ui.write(this.message(this.game.tally()));
         return new TerminateGameState();
     }
 

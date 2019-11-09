@@ -1,8 +1,10 @@
+package terminalgame;
+
 import java.util.Random;
 import rockpaperscissors.HandShapes;
 import rockpaperscissors.HandShape;
 
-public class RandomShape
+class RandomShape
 {
     public static HandShape shape()
     {

@@ -1,9 +1,13 @@
+import terminalgame.TerminalGame;
+import terminalgame.platform.LinuxTerminal;
+import terminalgame.ui.TerminalUI;
+
 public class RockPaperScissors
 {
     public static void main(String[] args)
     {
-        LinuxTerminal terminal = new LinuxTerminal();
-        GameUI ui = new GameUI(terminal);
+        LinuxTerminal io = new LinuxTerminal();
+        TerminalUI ui = new TerminalUI(io);
         TerminalGame game = new TerminalGame(ui);
         while (game.isRunning());
     }

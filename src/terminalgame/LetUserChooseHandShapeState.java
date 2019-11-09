@@ -1,7 +1,10 @@
+package terminalgame;
+
 import rockpaperscissors.Game;
 import rockpaperscissors.HandShape;
+import terminalgame.ui.TerminalUI;
 
-public class LetUserChooseHandShapeState extends State
+class LetUserChooseHandShapeState extends State
 {
     private HandShapeMapping mapping;
 
@@ -14,7 +17,7 @@ public class LetUserChooseHandShapeState extends State
     public State run()
     {
         HandShape playersHand;
-        String userInput = this.ui.read(this.message());
+        String userInput = this.ui.readLine(this.message());
         userInput = userInput.toLowerCase();
         try
         {

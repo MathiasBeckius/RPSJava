@@ -1,6 +1,9 @@
-import rockpaperscissors.Game;
+package terminalgame;
 
-public class StartOfGameState extends State
+import rockpaperscissors.Game;
+import terminalgame.ui.TerminalUI;
+
+class StartOfGameState extends State
 {
     public StartOfGameState(TerminalUI ui)
     {
@@ -9,8 +12,8 @@ public class StartOfGameState extends State
 
     public State run()
     {
-        this.ui.clear();
-        this.ui.show(this.message());
+        this.ui.clearScreen();
+        this.ui.write(this.message());
         return new LetUserChooseHandShapeState(this.ui, this.game);
     }
 
