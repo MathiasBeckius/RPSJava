@@ -7,7 +7,7 @@ class ResultOfRound
 
     public ResultOfRound(HandShape handP1, HandShape handP2)
     {
-        if (!this.validShape(handP1) && !this.validShape(handP2))
+        if (!this.validShape(handP1) || !this.validShape(handP2))
             throw new IllegalArgumentException();
         this.scoreP1 = handP1.beats(handP2) ? 1 : 0;
         this.scoreP2 = handP2.beats(handP1) ? 1 : 0;

@@ -1,16 +1,20 @@
 Polymorphism
 
+__Reasoning about null__
 null is not a good information carrier - don't use it as return values!
-Therefore, we are not checking for null.
+Returning null is potential time bomb - we don't know when the program chrashes!
+Accepting null via public interface is not good if we don't fail fast!
+Why we're not explicitly checking for null in our code (except when interfacing 3rd party SW):
+	- Game.evaluate()
+		Not needed since validation is done in ResultOfRound()
+		This also eliminates the need of validation in Rock/Paper/Scissors.beats()
+	- Tally.update()
+		Not needed since NullPointerException will immediately be thrown.
+	- LinuxTerminal.write()
+		Will not crash if null is passed to function. If null is passed, then the application is not tested. This class should intentionally be "dumb"
 
 Keep number of if-statements to a minimum, and avoid if-else!
 => Less complexity!
 
 rockpaperscissors package is totally stand-alone - can be used in different versions of the
 game! Create JAR-file??
-
-----------------------------------------------
-
-Move state machine to separate package - what to call it?
-    - StateMachine
-    

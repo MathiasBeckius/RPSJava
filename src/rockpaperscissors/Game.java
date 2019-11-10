@@ -12,9 +12,7 @@ public class Game
     public Game(int nrOfRounds)
     {
         if (!this.validNrOfRounds(nrOfRounds))
-            throw new IllegalArgumentException(
-                "nrOfRounds must be 1, 3, 5 or 7!"
-            );
+            throw new IllegalArgumentException();
         this.tally = new Tally(nrOfRounds);
     }
 
@@ -28,7 +26,7 @@ public class Game
     public Game evaluate(HandShape p1, HandShape p2)
     {
         if (this.hasEnded())
-            throw new UnsupportedOperationException("Game is finished!");
+            throw new UnsupportedOperationException();
         return new Game(this.tally.update(new ResultOfRound(p1, p2)));
     }
 
