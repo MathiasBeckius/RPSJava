@@ -13,7 +13,7 @@ build:
 	@javac $(SRC_DIR)/rockpaperscissors/*.java -d $(OUTPUT_DIR) -classpath $(CPATH)
 	@javac $(SRC_DIR)/terminalgame/ui/*.java -d $(OUTPUT_DIR) -classpath $(CPATH)
 	@javac $(SRC_DIR)/terminalgame/*.java -d $(OUTPUT_DIR) -classpath $(CPATH)
-	@javac $(SRC_DIR)/terminalgame/platform/*.java -d $(OUTPUT_DIR) -classpath $(CPATH)
+	@javac $(SRC_DIR)/terminalgame/ui/platform/*.java -d $(OUTPUT_DIR) -classpath $(CPATH)
 	@javac $(SRC_DIR)/*.java -d $(OUTPUT_DIR) -classpath $(CPATH)
 
 rebuild: clean build

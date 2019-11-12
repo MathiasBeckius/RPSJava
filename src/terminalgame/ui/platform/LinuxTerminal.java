@@ -1,4 +1,4 @@
-package terminalgame.platform;
+package terminalgame.ui.platform;
 
 import terminalgame.ui.TerminalIO;
 

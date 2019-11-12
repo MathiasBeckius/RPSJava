@@ -1,5 +1,5 @@
 import terminalgame.TerminalGame;
-import terminalgame.platform.LinuxTerminal;
+import terminalgame.ui.platform.LinuxTerminal;
 import terminalgame.ui.TerminalUI;
 
 public class RockPaperScissors
