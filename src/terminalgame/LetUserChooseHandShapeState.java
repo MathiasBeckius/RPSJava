@@ -1,16 +1,20 @@
 package terminalgame;
 
 import rockpaperscissors.Game;
+import rockpaperscissors.Tally;
 import rockpaperscissors.HandShape;
 import terminalgame.ui.TerminalUI;
 
 class LetUserChooseHandShapeState extends State
 {
+    private TerminalUI ui;
+    private Tally tally;
     private HandShapeMapping mapping;
 
-    public LetUserChooseHandShapeState(TerminalUI ui, Game game)
+    public LetUserChooseHandShapeState(TerminalUI ui, Tally tally)
     {
-        super(ui, game);
+        this.ui = ui;
+        this.tally = tally;
         this.mapping = new HandShapeMapping("r", "p", "s");
     }
 
@@ -28,8 +32,8 @@ class LetUserChooseHandShapeState extends State
             return this;
         }
         HandShape opponentsHand = RandomShape.shape();
-        this.game = this.game.evaluate(playersHand, opponentsHand);
-        return new PresentResultState(this.ui, this.game);
+        this.tally = Game.updatedTally(this.tally, playersHand, opponentsHand);
+        return new PresentResultState(this.ui, this.tally);
     }
 
     private String message()

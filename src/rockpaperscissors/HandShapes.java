@@ -3,7 +3,7 @@ package rockpaperscissors;
 /**
  * Access the handshapes within the game of Rock-Paper-Scissors.
  */
-public class HandShapes
+public final class HandShapes
 {
     /**
      * Returns an instance of the rock.

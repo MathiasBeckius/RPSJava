@@ -1,19 +1,22 @@
 package terminalgame;
 
-import rockpaperscissors.Game;
 import rockpaperscissors.Tally;
 import terminalgame.ui.TerminalUI;
 
 class EndOfGameState extends State
 {
-    public EndOfGameState(TerminalUI ui, Game game)
+    private TerminalUI ui;
+    private Tally tally;
+
+    public EndOfGameState(TerminalUI ui, Tally tally)
     {
-        super(ui, game);
+        this.ui = ui;
+        this.tally = tally;
     }
 
     public State run()
     {
-        this.ui.write(this.message(this.game.tally()));
+        this.ui.write(this.message(this.tally));
         return new TerminateGameState();
     }
 

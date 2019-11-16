@@ -4,39 +4,41 @@ package rockpaperscissors;
  * Play Rock-Paper-Scissors, where two players can compete
  * in a "best of 1, 3, 5 or 7 rounds" game.
  *
- * 1) Start the game (best of 3 rounds):
- *      Game game = new Game(3);
+ * Start the game (best of 3 rounds):
+ *      Tally tally = Game.newTally(3);
  *
- * 2) Evaluate handshapes (and updated tally):
- *      game = game.evaluate(handP1, handP2);
- * Note that the old instance is "thrown away"! Each instance of the Game class
+ * Update tally (evaluate handshapes, update score):
+ *      tally = Game.updatedTally(tally, handP1, handP2);
+ * Note that the old instance is "thrown away"! Each instance of the Tally
  * is immutable.
  *
- * 3) Read tally, e.g. for presenting it nicely to the user:
- *      Tally tally = game.tally();
- *
- * 4) Check if the game has ended:
- *      if (game.hasEnded())
- *
+ * Check if the game has ended:
+ *      if (tally.remainingNrOfRounds() == 0)
  */
-public class Game
+public final class Game
 {
-    private RPSTally tally;
-
     /**
-     * Start a new game.
+     * Create a new tally.
      * @param nrOfRounds Number of rounds to play. Must be 1, 3, 5 or 7.
      * @throws IllegalArgumentException If nrOfRounds is invalid.
+     * @return Tally with initialized score, etc.
      */
-    public Game(int nrOfRounds)
+    public static Tally newTally(int nrOfRounds)
     {
-        if (!this.validNrOfRounds(nrOfRounds))
+        if (!Game.validNrOfRounds(nrOfRounds))
             throw new IllegalArgumentException();
-        this.tally = new RPSTally(nrOfRounds);
+        return new RPSTally(nrOfRounds);
+    }
+
+    private static boolean validNrOfRounds(int nr)
+    {
+        return (nr >= 1) && (nr <= 7) && (nr % 2 == 1);
     }
 
     /**
-     * Evaluate the result of the players chosen handshapes. The tally will also
+     * Create an updated tally.
+     *
+     * The players chosen handshapes will be evaluated. The tally will also
      * be updated with score and the last used handshapes.
      *
      * If one of the players has won a majority of the rounds, then the game
@@ -44,38 +46,30 @@ public class Game
      *
      * If it's a draw after all rounds, then the game continues until we
      * have a winner.
+     * @param tally Current instance of the tally.
      * @param p1 Hand of Player 1.
      * @param p2 Hand of Player 2.
+     * @throws NullPointerException If any of the parameters are null.
      * @throws UnsupportedOperationException If the game has already ended.
-     * @throws IllegalArgumentException If invalid handshapes (or null) are
-     * passed as arguments.
-     * @return A new instance of the Game class.
+     * @throws IllegalArgumentException If any of the parameters are invalid
+     * instances.
+     * @return Tally with updated score, etc.
      */
-    public Game evaluate(HandShape p1, HandShape p2)
+    public static Tally updatedTally(Tally tally, HandShape p1, HandShape p2)
     {
-        if (this.hasEnded())
-            throw new UnsupportedOperationException();
+        if ((tally == null) || (p1 == null) || (p2 == null))
+            throw new NullPointerException();
 
-        ComparableHandShape cP1 = (ComparableHandShape) p1;
-        ComparableHandShape cP2 = (ComparableHandShape) p2;
-        return new Game(this.tally.update(new ResultOfRound(cP1, cP2)));
-    }
+        RPSTally rpsTally;
+        try
+        {
+            rpsTally = (RPSTally)tally;
+        }
+        catch (ClassCastException e)
+        {
+            throw new IllegalArgumentException();
+        }
 
-    /**
-     * Returns the current instance of the tally, e.g. to be presented through
-     * the user interface.
-     */
-    public Tally tally() { return this.tally; }
-
-    /**
-     * Checks if the game has ended.
-     */
-    public boolean hasEnded() { return this.tally.remainingNrOfRounds() == 0; }
-
-    private Game(RPSTally tally) { this.tally = tally; }
-
-    private boolean validNrOfRounds(int nr)
-    {
-        return (nr >= 1) && (nr <= 7) && (nr % 2 == 1);
+        return rpsTally.update(new ResultOfRound(p1, p2));
     }
 }

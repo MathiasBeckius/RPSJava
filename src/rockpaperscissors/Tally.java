@@ -28,4 +28,9 @@ public interface Tally
      * Return current score for Player 2.
      */
     public int scorePlayer2();
+
+    /**
+     * Return remaining number of rounds.
+     */
+    public int remainingNrOfRounds();
 }

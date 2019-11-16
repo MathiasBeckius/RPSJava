@@ -1,20 +1,25 @@
 package terminalgame;
 
 import rockpaperscissors.Game;
+import rockpaperscissors.Tally;
 import terminalgame.ui.TerminalUI;
 
 class StartOfGameState extends State
 {
+    private TerminalUI ui;
+    private Tally tally;
+
     public StartOfGameState(TerminalUI ui)
     {
-        super(ui, new Game(3));
+        this.ui = ui;
+        this.tally = Game.newTally(3);
     }
 
     public State run()
     {
         this.ui.clearScreen();
         this.ui.write(this.message());
-        return new LetUserChooseHandShapeState(this.ui, this.game);
+        return new LetUserChooseHandShapeState(this.ui, this.tally);
     }
 
     private String message()
