@@ -57,19 +57,21 @@ public final class Game
      */
     public static Tally updatedTally(Tally tally, HandShape p1, HandShape p2)
     {
-        if ((tally == null) || (p1 == null) || (p2 == null))
+        return Game.rpsTally(tally).update(new ResultOfRound(p1, p2));
+    }
+
+    private static RPSTally rpsTally(Tally tally)
+    {
+        if (tally == null)
             throw new NullPointerException();
 
-        RPSTally rpsTally;
         try
         {
-            rpsTally = (RPSTally)tally;
+            return (RPSTally)tally;
         }
         catch (ClassCastException e)
         {
             throw new IllegalArgumentException();
         }
-
-        return rpsTally.update(new ResultOfRound(p1, p2));
     }
 }
