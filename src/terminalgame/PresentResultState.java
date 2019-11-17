@@ -5,23 +5,21 @@ import terminalgame.ui.TerminalUI;
 
 class PresentResultState extends State
 {
-    private TerminalUI ui;
     private Tally tally;
 
-    public PresentResultState(TerminalUI ui, Tally tally)
+    public PresentResultState(Tally tally)
     {
-        this.ui = ui;
         this.tally = tally;
     }
 
-    public State run()
+    public State run(TerminalUI ui)
     {
-        this.ui.write(this.message(this.tally));
+        ui.write(this.message(this.tally));
 
         if (this.tally.remainingNrOfRounds() == 0)
-            return new EndOfGameState(this.ui, this.tally);
+            return new EndOfGameState(this.tally);
 
-        return new LetUserChooseHandShapeState(this.ui, this.tally);
+        return new LetUserChooseHandShapeState(this.tally);
     }
 
     private String message(Tally tally)

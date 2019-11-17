@@ -9,29 +9,27 @@ import terminalgame.ui.TerminalUI;
 
 class LetUserChooseHandShapeState extends State
 {
-    private TerminalUI ui;
     private Tally tally;
 
-    public LetUserChooseHandShapeState(TerminalUI ui, Tally tally)
+    public LetUserChooseHandShapeState(Tally tally)
     {
-        this.ui = ui;
         this.tally = tally;
     }
 
-    public State run()
+    public State run(TerminalUI ui)
     {
-        HandShape playersHand = this.letUserChooseShape();
+        HandShape playersHand = this.letUserChooseShape(ui);
         if (playersHand == null)
             return this;
         HandShape opponentsHand = RandomShape.shape();
-        this.tally = Game.updatedTally(this.tally, playersHand, opponentsHand);
-        return new PresentResultState(this.ui, this.tally);
+        return new PresentResultState(
+            Game.updatedTally(this.tally, playersHand, opponentsHand));
     }
 
-    private HandShape letUserChooseShape()
+    private HandShape letUserChooseShape(TerminalUI ui)
     {
         String message = "[R]ock, [P]aper or [S]cissors? ";
-        String userInput = this.ui.readLine(message);
+        String userInput = ui.readLine(message);
         userInput = userInput.toLowerCase();
         return this.mapTable().get(userInput);
     }

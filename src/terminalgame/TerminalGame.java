@@ -8,6 +8,7 @@ import terminalgame.ui.TerminalUI;
 public class TerminalGame
 {
     private State state;
+    private TerminalUI ui;
 
     /**
      * Creates an instance of the game.
@@ -18,7 +19,8 @@ public class TerminalGame
     {
         if (ui == null)
             throw new NullPointerException();
-        this.state = new StartOfGameState(ui);
+        this.ui = ui;
+        this.state = new StartOfGameState();
     }
 
     /**
@@ -26,7 +28,7 @@ public class TerminalGame
      */
     public boolean isRunning()
     {
-        this.state = this.state.run();
+        this.state = this.state.run(this.ui);
         return !(this.state instanceof TerminateGameState);
     }
 }

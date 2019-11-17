@@ -5,18 +5,16 @@ import terminalgame.ui.TerminalUI;
 
 class EndOfGameState extends State
 {
-    private TerminalUI ui;
     private Tally tally;
 
-    public EndOfGameState(TerminalUI ui, Tally tally)
+    public EndOfGameState(Tally tally)
     {
-        this.ui = ui;
         this.tally = tally;
     }
 
-    public State run()
+    public State run(TerminalUI ui)
     {
-        this.ui.write(this.message(this.tally));
+        ui.write(this.message(this.tally));
         return new TerminateGameState();
     }
 
