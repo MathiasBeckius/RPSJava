@@ -7,13 +7,12 @@ class ResultOfRound
 
     public ResultOfRound(HandShape p1, HandShape p2)
     {
-        ComparableHandShape handP1 = this.compShape(p1);
-        ComparableHandShape handP2 = this.compShape(p2);
-
-        this.scoreP1 = handP1.beats(handP2) ? 1 : 0;
-        this.scoreP2 = handP2.beats(handP1) ? 1 : 0;
-        this.handP1 = handP1.name();
-        this.handP2 = handP2.name();
+        ComparableHandShape cmpHandP1 = compShape(p1);
+        ComparableHandShape cmpHandP2 = compShape(p2);
+        scoreP1 = cmpHandP1.beats(cmpHandP2) ? 1 : 0;
+        scoreP2 = cmpHandP2.beats(cmpHandP1) ? 1 : 0;
+        handP1 = cmpHandP1.name();
+        handP2 = cmpHandP2.name();
     }
 
     private ComparableHandShape compShape(HandShape shape)
@@ -31,8 +30,8 @@ class ResultOfRound
         }
     }
 
-    public int scorePlayer1()   { return this.scoreP1; }
-    public int scorePlayer2()   { return this.scoreP2; }
-    public String handPlayer1() { return this.handP1; }
-    public String handPlayer2() { return this.handP2; }
+    public int scorePlayer1()   { return scoreP1; }
+    public int scorePlayer2()   { return scoreP2; }
+    public String handPlayer1() { return handP1; }
+    public String handPlayer2() { return handP2; }
 }

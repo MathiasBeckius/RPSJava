@@ -14,7 +14,7 @@ class EndOfGameState extends State
 
     public State run(TerminalUI ui)
     {
-        ui.write(this.message(this.tally));
+        ui.write(message(tally));
         return new TerminateGameState();
     }
 
@@ -22,11 +22,10 @@ class EndOfGameState extends State
     {
         return String.format(
             "%s\n\nEnd of game!\n",
-            this.result(tally.scorePlayer1(), tally.scorePlayer2())
-        );
+            resultMessage(tally.scorePlayer1(), tally.scorePlayer2()));
     }
 
-    private String result(int p1, int p2)
+    private String resultMessage(int p1, int p2)
     {
         if (p1 > p2)
             return "You win!";

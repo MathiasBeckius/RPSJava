@@ -12,15 +12,16 @@ public class TerminalGame
 
     /**
      * Creates an instance of the game.
-     * @param ui Instance of the terminal-based user interface.
+     * @param terminalUI Instance of the terminal-based user interface.
      * @throws NullPointerException If null is passed as an argument.
      */
-    public TerminalGame(TerminalUI ui)
+    public TerminalGame(TerminalUI terminalUI)
     {
-        if (ui == null)
+        if (terminalUI == null)
             throw new NullPointerException();
-        this.ui = ui;
-        this.state = new StartOfGameState();
+
+        ui = terminalUI;
+        state = new StartOfGameState();
     }
 
     /**
@@ -28,7 +29,7 @@ public class TerminalGame
      */
     public boolean isRunning()
     {
-        this.state = this.state.run(this.ui);
-        return !(this.state instanceof TerminateGameState);
+        state = state.run(ui);
+        return !(state instanceof TerminateGameState);
     }
 }

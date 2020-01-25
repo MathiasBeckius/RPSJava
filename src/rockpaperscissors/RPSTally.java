@@ -5,52 +5,55 @@ class RPSTally implements Tally
     private int nrOfRounds, scoreP1, scoreP2;
     private String handP1, handP2;
 
-    public RPSTally(int nrOfRounds)  { this(nrOfRounds, 0, 0, null, null); }
-    public String handPlayer1()      { return this.checkRef(this.handP1); }
-    public String handPlayer2()      { return this.checkRef(this.handP2); }
-    public int scorePlayer1()        { return this.scoreP1; }
-    public int scorePlayer2()        { return this.scoreP2; }
-    public int remainingNrOfRounds() { return this.nrOfRounds; }
+    public RPSTally(int rounds)      { this(rounds, 0, 0, null, null); }
+    public String handPlayer1()      { return checkRef(handP1); }
+    public String handPlayer2()      { return checkRef(handP2); }
+    public int scorePlayer1()        { return scoreP1; }
+    public int scorePlayer2()        { return scoreP2; }
+    public int remainingNrOfRounds() { return nrOfRounds; }
 
     public RPSTally update(ResultOfRound result)
     {
-        if (this.nrOfRounds == 0)
+        if (remainingNrOfRounds() == 0)
             throw new UnsupportedOperationException();
 
-        int remainingRounds = this.nrOfRounds - 1;
-        int scoreP1 = this.scoreP1 + result.scorePlayer1();
-        int scoreP2 = this.scoreP2 + result.scorePlayer2();
-        String handP1 = result.handPlayer1();
-        String handP2 = result.handPlayer2();
+        int newScoreP1 = scorePlayer1() + result.scorePlayer1();
+        int newScoreP2 = scorePlayer2() + result.scorePlayer2();
 
-        if (this.itsADraw(remainingRounds, scoreP1, scoreP2))
-            return new RPSTally(1, scoreP1, scoreP2, handP1, handP2);
-        if (this.onePlayerHasWonMostRounds(remainingRounds, scoreP1, scoreP2))
-            return new RPSTally(0, scoreP1, scoreP2, handP1, handP2);
-        return new RPSTally(remainingRounds, scoreP1, scoreP2, handP1, handP2);
+        return new RPSTally(
+            calcRemainingNrOfRounds(newScoreP1, newScoreP2),
+            newScoreP1,
+            newScoreP2,
+            result.handPlayer1(),
+            result.handPlayer2());
     }
 
-    private boolean itsADraw(int remainingRounds, int scoreP1, int scoreP2)
+    private int calcRemainingNrOfRounds(int scoreP1, int scoreP2)
     {
-        return (remainingRounds == 0) && (scoreP1 == scoreP2);
-    }
+        int rounds = remainingNrOfRounds() - 1;
 
-    private boolean onePlayerHasWonMostRounds(
-        int remainingRounds, int scoreP1, int scoreP2)
-    {
-        return (Math.max(scoreP1, scoreP2) > remainingRounds) && (scoreP1 != scoreP2);
+        // If it's a draw when all rounds are played...
+        if ((rounds == 0) && (scoreP1 == scoreP2))
+            return 1; // Play another round
+
+        // If one player has won most rounds...
+        if ((Math.max(scoreP1, scoreP2) > rounds) && (scoreP1 != scoreP2))
+            return 0; // Then we have a winner - stop playing
+
+        // Keep playing
+        return rounds;
     }
 
     private RPSTally(
-        int nrOfRounds,
-        int scoreP1, int scoreP2,
-        String handP1, String handP2)
+        int rounds,
+        int p1Score, int p2Score,
+        String p1Hand, String p2Hand)
     {
-        this.nrOfRounds = nrOfRounds;
-        this.scoreP1 = scoreP1;
-        this.scoreP2 = scoreP2;
-        this.handP1 = handP1;
-        this.handP2 = handP2;
+        nrOfRounds = rounds;
+        scoreP1 = p1Score;
+        scoreP2 = p2Score;
+        handP1 = p1Hand;
+        handP2 = p2Hand;
     }
 
     private String checkRef(String hand)

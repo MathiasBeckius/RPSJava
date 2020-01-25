@@ -1,10 +1,11 @@
 package terminalgame;
 
 import java.util.Hashtable;
+import java.util.Random;
 import rockpaperscissors.Game;
 import rockpaperscissors.Tally;
-import rockpaperscissors.HandShape;
 import rockpaperscissors.HandShapes;
+import rockpaperscissors.HandShape;
 import terminalgame.ui.TerminalUI;
 
 class LetUserChooseHandShapeState extends State
@@ -18,12 +19,13 @@ class LetUserChooseHandShapeState extends State
 
     public State run(TerminalUI ui)
     {
-        HandShape playersHand = this.letUserChooseShape(ui);
+        HandShape playersHand = letUserChooseShape(ui);
+        // If no match for user input...
         if (playersHand == null)
-            return this;
-        HandShape opponentsHand = RandomShape.shape();
+            return this; // Remain in state, i.e. let user try again
+
         return new PresentResultState(
-            Game.updatedTally(this.tally, playersHand, opponentsHand));
+            Game.updatedTally(tally, playersHand, opponentsHand()));
     }
 
     private HandShape letUserChooseShape(TerminalUI ui)
@@ -31,7 +33,8 @@ class LetUserChooseHandShapeState extends State
         String message = "[R]ock, [P]aper or [S]cissors? ";
         String userInput = ui.readLine(message);
         userInput = userInput.toLowerCase();
-        return this.mapTable().get(userInput);
+        // Will return null if there's no match for userInput
+        return mapTable().get(userInput);
     }
 
     private Hashtable<String, HandShape> mapTable()
@@ -41,5 +44,16 @@ class LetUserChooseHandShapeState extends State
         table.put("p", HandShapes.paper());
         table.put("s", HandShapes.scissors());
         return table;
+    }
+
+    private HandShape opponentsHand()
+    {
+        Random rnd = new Random();
+        int x = rnd.nextInt(3000);
+        if (x < 1000)
+            return HandShapes.rock();
+        if (x < 2000)
+            return HandShapes.paper();
+        return HandShapes.scissors();
     }
 }

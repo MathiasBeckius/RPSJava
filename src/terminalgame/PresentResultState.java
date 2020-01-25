@@ -14,24 +14,24 @@ class PresentResultState extends State
 
     public State run(TerminalUI ui)
     {
-        ui.write(this.message(this.tally));
+        ui.write(message());
 
-        if (this.tally.remainingNrOfRounds() == 0)
-            return new EndOfGameState(this.tally);
+        if (tally.remainingNrOfRounds() == 0)
+            return new EndOfGameState(tally);
 
-        return new LetUserChooseHandShapeState(this.tally);
+        return new LetUserChooseHandShapeState(tally);
     }
 
-    private String message(Tally tally)
+    private String message()
     {
-        return String.format(
-            "You chose %s, your opponent chose %s.\n",
-            tally.handPlayer1(),
-            tally.handPlayer2()
-        ) + String.format(
-            "You have %d points, your opponent has %d\n\n",
-            tally.scorePlayer1(),
-            tally.scorePlayer2()
-        );
+        return
+            String.format(
+                "You chose %s, your opponent chose %s.\n",
+                tally.handPlayer1(),
+                tally.handPlayer2()) +
+            String.format(
+                "You have %d points, your opponent has %d\n\n",
+                tally.scorePlayer1(),
+                tally.scorePlayer2());
     }
 }

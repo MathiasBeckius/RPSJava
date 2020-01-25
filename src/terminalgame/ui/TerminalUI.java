@@ -9,26 +9,26 @@ public class TerminalUI
 
     /**
      * Create an instance of the user interface.
-     * @param io Terminal I/O instance.
+     * @param terminalIO Terminal I/O instance.
      * @throws NullPointerException If null is passed as argument.
      */
-    public TerminalUI(TerminalIO io)
+    public TerminalUI(TerminalIO terminalIO)
     {
-        if (io == null)
+        if (terminalIO == null)
             throw new NullPointerException();
-        this.io = io;
+        io = terminalIO;
     }
 
     /**
      * Clears the terminal screen (buffer).
      */
-    public void clearScreen() { this.io.clearScreen(); }
+    public void clearScreen() { io.clearScreen(); }
 
     /**
      * Write a message on the current line of the terminal.
      * @param message Message
      */
-    public void write(String message) { this.io.write(message); }
+    public void write(String message) { io.write(message); }
 
     /**
      * Lets the user write a line (finish by pressing Enter/Return).
@@ -37,7 +37,7 @@ public class TerminalUI
      */
     public String readLine(String message)
     {
-        this.io.write(message);
-        return this.io.readLine();
+        io.write(message);
+        return io.readLine();
     }
 }
