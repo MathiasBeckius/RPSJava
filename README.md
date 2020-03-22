@@ -2,7 +2,7 @@
 
 ## Description
 
-This is a terminal-based version of the classic [Rock-Paper-Scissors](https://en.wikipedia.org/wiki/Rock%E2%80%93paper%E2%80%93scissors) game, implemented in Java.
+This is a terminal-based version of the classic [Rock-Paper-Scissors](https://en.wikipedia.org/wiki/Rock%E2%80%93paper%E2%80%93scissors) game, written in Java.
 
 The only reason of creating this game was to practice on object-oriented principles such as Domain-Driven Design.
 
