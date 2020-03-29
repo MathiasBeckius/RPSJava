@@ -16,3 +16,5 @@ Another design goal was to be very strict on how to handle null at the boundarie
 2. null is never used as return values (used way often in all kinds of libraries).
 
 Besides being a potential time-bomb, null is not a good information carrier.
+
+FOOBAR
