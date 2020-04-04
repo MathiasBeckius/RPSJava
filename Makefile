@@ -6,10 +6,10 @@ OUTPUT_DIR=.output
 
 CPATH=$(PWD)/$(OUTPUT_DIR):$(PWD)/$(OUTPUT_DIR)/rockpaperscissors:$(PWD)/$(OUTPUT_DIR)/terminalgame:$(PWD)/$(OUTPUT_DIR)/terminalgame/ui:$(PWD)/$(OUTPUT_DIR)/terminalgame/platform
 
-TEST_CPATHS=.:$(TEST_DIR)/junit-4.12.jar:$(TEST_DIR)/hamcrest-core-1.3.jar:$(TEST_DIR):$(CPATH)
+TEST_CPATHS=.:$(TEST_DIR)/junit-4.13.jar:$(TEST_DIR)/hamcrest-core-1.3.jar:$(TEST_DIR):$(CPATH)
 
 test_runner: rebuild
-	@javac -cp $(TEST_CPATHS) $(TEST_DIR)/*.java
+	@javac -cp $(TEST_CPATHS) $(TEST_DIR)/*.java -Xlint:deprecation
 	@java -cp $(TEST_CPATHS) org.junit.runner.JUnitCore TallyTestInitializedState
 	@java -cp $(TEST_CPATHS) org.junit.runner.JUnitCore TallyTestUpdatedTally
 	@java -cp $(TEST_CPATHS) org.junit.runner.JUnitCore TallyTestInvalidNrOfRounds
