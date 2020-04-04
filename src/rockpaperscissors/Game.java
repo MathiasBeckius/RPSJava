@@ -25,14 +25,7 @@ public final class Game
      */
     public static Tally newTally(int nrOfRounds)
     {
-        if (!Game.validNrOfRounds(nrOfRounds))
-            throw new IllegalArgumentException();
         return new RPSTally(nrOfRounds);
-    }
-
-    private static boolean validNrOfRounds(int nr)
-    {
-        return (nr >= 1) && (nr <= 7) && (nr % 2 == 1);
     }
 
     /**
@@ -57,7 +50,7 @@ public final class Game
      */
     public static Tally updatedTally(Tally tally, HandShape p1, HandShape p2)
     {
-        return Game.rpsTally(tally).update(new ResultOfRound(p1, p2));
+        return RPSTally.update(Game.rpsTally(tally), new ResultOfRound(p1, p2));
     }
 
     private static RPSTally rpsTally(Tally tally)

@@ -5,32 +5,61 @@ class RPSTally implements Tally
     private int nrOfRounds, scoreP1, scoreP2;
     private String handP1, handP2;
 
-    public RPSTally(int rounds)      { this(rounds, 0, 0, null, null); }
-    public String handPlayer1()      { return checkRef(handP1); }
-    public String handPlayer2()      { return checkRef(handP2); }
+    /**
+     * @brief Create a new tally.
+     * @param nrOfRounds Number of rounds to play. Must be 1, 3, 5 or 7.
+     * @throws IllegalArgumentException If nrOfRounds is invalid.
+     * @return Tally with initialized score, etc.
+     */
+    public RPSTally(int rounds)
+    {
+        this(RPSTally.validateNrOfRounds(rounds), 0, 0, null, null);
+    }
+
+    private RPSTally(
+        int rounds, int p1Score, int p2Score, String p1Hand, String p2Hand)
+    {
+        nrOfRounds = rounds;
+        scoreP1 = p1Score;
+        scoreP2 = p2Score;
+        handP1 = p1Hand;
+        handP2 = p2Hand;
+    }
+
+    public String handPlayer1()      { return RPSTally.checkRef(handP1); }
+    public String handPlayer2()      { return RPSTally.checkRef(handP2); }
     public int scorePlayer1()        { return scoreP1; }
     public int scorePlayer2()        { return scoreP2; }
     public int remainingNrOfRounds() { return nrOfRounds; }
 
-    public RPSTally update(ResultOfRound result)
+    private static int validateNrOfRounds(int nr)
     {
-        if (remainingNrOfRounds() == 0)
-            throw new UnsupportedOperationException();
-
-        int newScoreP1 = scorePlayer1() + result.scorePlayer1();
-        int newScoreP2 = scorePlayer2() + result.scorePlayer2();
-
-        return new RPSTally(
-            calcRemainingNrOfRounds(newScoreP1, newScoreP2),
-            newScoreP1,
-            newScoreP2,
-            result.handPlayer1(),
-            result.handPlayer2());
+        if ((nr >= 1) && (nr <= 7) && (nr % 2 == 1))
+            return nr;
+        throw new IllegalArgumentException();
     }
 
-    private int calcRemainingNrOfRounds(int scoreP1, int scoreP2)
+    public static RPSTally update(RPSTally tally, ResultOfRound result)
     {
-        int rounds = remainingNrOfRounds() - 1;
+        if (tally.remainingNrOfRounds() == 0)
+            throw new UnsupportedOperationException();
+
+        int scoreP1 = tally.scorePlayer1() + result.scorePlayer1();
+        int scoreP2 = tally.scorePlayer2() + result.scorePlayer2();
+
+        int remainingNrOfRounds = RPSTally.calcRemainingNrOfRounds(
+            tally.remainingNrOfRounds(), scoreP1, scoreP2);
+
+        return new RPSTally(
+            remainingNrOfRounds,
+            scoreP1, scoreP2,
+            result.handPlayer1(), result.handPlayer2());
+    }
+
+    private static int calcRemainingNrOfRounds(
+        int nrOfRounds, int scoreP1, int scoreP2)
+    {
+        int rounds = nrOfRounds - 1;
 
         // If it's a draw when all rounds are played...
         if ((rounds == 0) && (scoreP1 == scoreP2))
@@ -44,19 +73,7 @@ class RPSTally implements Tally
         return rounds;
     }
 
-    private RPSTally(
-        int rounds,
-        int p1Score, int p2Score,
-        String p1Hand, String p2Hand)
-    {
-        nrOfRounds = rounds;
-        scoreP1 = p1Score;
-        scoreP2 = p2Score;
-        handP1 = p1Hand;
-        handP2 = p2Hand;
-    }
-
-    private String checkRef(String hand)
+    private static String checkRef(String hand)
     {
         if (hand == null)
             throw new UnsupportedOperationException();
