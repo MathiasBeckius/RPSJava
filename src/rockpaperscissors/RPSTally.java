@@ -1,6 +1,21 @@
 package rockpaperscissors;
 
-public class RPSTally implements Tally
+/**
+ * Play Rock-Paper-Scissors, where two players can compete
+ * in a "best of 1, 3, 5 or 7 rounds" game.
+ *
+ * Start the game (best of 3 rounds):
+ *      Tally tally = new Tally(3);
+ *
+ * Update tally (evaluate handshapes, update score):
+ *      tally = tally.update(handP1, handP2);
+ * Note that the old instance is "thrown away"! Each instance of the Tally
+ * is immutable.
+ *
+ * Check if the game has ended:
+ *      if (tally.remainingNrOfRounds() == 0)
+ */
+public class RPSTally
 {
     private int nrOfRounds, scoreP1, scoreP2;
     private String handP1, handP2;
@@ -26,10 +41,33 @@ public class RPSTally implements Tally
         handP2 = p2Hand;
     }
 
+    /**
+     * Return last hand shape of Player 1.
+     * @throws UnsupportedOperationException If first round has not been played,
+     * i.e. no hands registered in tally.
+     */
     public String handPlayer1()      { return RPSTally.checkRef(handP1); }
+
+    /**
+     * Return last hand shape of Player 2.
+     * @throws UnsupportedOperationException If first round has not been played,
+     * i.e. no hands registered in tally.
+     */
     public String handPlayer2()      { return RPSTally.checkRef(handP2); }
+
+    /**
+     * Return current score for Player 1.
+     */
     public int scorePlayer1()        { return scoreP1; }
+
+    /**
+     * Return current score for Player 2.
+     */
     public int scorePlayer2()        { return scoreP2; }
+
+    /**
+     * Return remaining number of rounds.
+     */
     public int remainingNrOfRounds() { return nrOfRounds; }
 
     private static int validateNrOfRounds(int nr)

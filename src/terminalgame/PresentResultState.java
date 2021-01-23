@@ -1,13 +1,13 @@
 package terminalgame;
 
-import rockpaperscissors.Tally;
+import rockpaperscissors.RPSTally;
 import terminalgame.ui.TerminalUI;
 
 class PresentResultState extends State
 {
-    private Tally tally;
+    private RPSTally tally;
 
-    public PresentResultState(Tally tally)
+    public PresentResultState(RPSTally tally)
     {
         this.tally = tally;
     }

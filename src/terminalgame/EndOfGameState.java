@@ -1,13 +1,13 @@
 package terminalgame;
 
-import rockpaperscissors.Tally;
+import rockpaperscissors.RPSTally;
 import terminalgame.ui.TerminalUI;
 
 class EndOfGameState extends State
 {
-    private Tally tally;
+    private RPSTally tally;
 
-    public EndOfGameState(Tally tally)
+    public EndOfGameState(RPSTally tally)
     {
         this.tally = tally;
     }
@@ -18,7 +18,7 @@ class EndOfGameState extends State
         return new TerminateGameState();
     }
 
-    private String message(Tally tally)
+    private String message(RPSTally tally)
     {
         return String.format(
             "%s\n\nEnd of game!\n",
