@@ -15,7 +15,7 @@ package rockpaperscissors;
  * Check if the game has ended:
  *      if (tally.remainingNrOfRounds() == 0)
  */
-public class RPSTally
+public class Tally
 {
     private int nrOfRounds, scoreP1, scoreP2;
     private String handP1, handP2;
@@ -26,12 +26,12 @@ public class RPSTally
      * @throws IllegalArgumentException If nrOfRounds is invalid.
      * @return Tally with initialized score, etc.
      */
-    public RPSTally(int rounds)
+    public Tally(int rounds)
     {
-        this(RPSTally.validateNrOfRounds(rounds), 0, 0, null, null);
+        this(Tally.validateNrOfRounds(rounds), 0, 0, null, null);
     }
 
-    private RPSTally(
+    private Tally(
         int rounds, int p1Score, int p2Score, String p1Hand, String p2Hand)
     {
         nrOfRounds = rounds;
@@ -46,14 +46,14 @@ public class RPSTally
      * @throws UnsupportedOperationException If first round has not been played,
      * i.e. no hands registered in tally.
      */
-    public String handPlayer1()      { return RPSTally.checkRef(handP1); }
+    public String handPlayer1()      { return Tally.checkRef(handP1); }
 
     /**
      * Return last hand shape of Player 2.
      * @throws UnsupportedOperationException If first round has not been played,
      * i.e. no hands registered in tally.
      */
-    public String handPlayer2()      { return RPSTally.checkRef(handP2); }
+    public String handPlayer2()      { return Tally.checkRef(handP2); }
 
     /**
      * Return current score for Player 1.
@@ -77,7 +77,7 @@ public class RPSTally
         throw new IllegalArgumentException();
     }
 
-    public RPSTally update(HandShape p1, HandShape p2)
+    public Tally update(HandShape p1, HandShape p2)
     {
         if (remainingNrOfRounds() == 0)
             throw new UnsupportedOperationException();
@@ -86,10 +86,10 @@ public class RPSTally
         int scoreP1 = scorePlayer1() + result.scorePlayer1();
         int scoreP2 = scorePlayer2() + result.scorePlayer2();
 
-        int remainingNrOfRounds = RPSTally.calcRemainingNrOfRounds(
+        int remainingNrOfRounds = Tally.calcRemainingNrOfRounds(
             remainingNrOfRounds(), scoreP1, scoreP2);
 
-        return new RPSTally(
+        return new Tally(
             remainingNrOfRounds,
             scoreP1, scoreP2,
             result.handPlayer1(), result.handPlayer2());

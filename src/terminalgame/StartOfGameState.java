@@ -1,6 +1,6 @@
 package terminalgame;
 
-import rockpaperscissors.RPSTally;
+import rockpaperscissors.Tally;
 import terminalgame.ui.TerminalUI;
 
 class StartOfGameState extends State
@@ -9,6 +9,6 @@ class StartOfGameState extends State
     {
         ui.clearScreen();
         ui.write("Starting game...\n\n");
-        return new LetUserChooseHandShapeState(new RPSTally(3));
+        return new LetUserChooseHandShapeState(new Tally(3));
     }
 }

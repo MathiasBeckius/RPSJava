@@ -2,16 +2,16 @@ package terminalgame;
 
 import java.util.Hashtable;
 import java.util.Random;
-import rockpaperscissors.RPSTally;
+import rockpaperscissors.Tally;
 import rockpaperscissors.HandShapes;
 import rockpaperscissors.HandShape;
 import terminalgame.ui.TerminalUI;
 
 class LetUserChooseHandShapeState extends State
 {
-    private RPSTally tally;
+    private Tally tally;
 
-    public LetUserChooseHandShapeState(RPSTally tally)
+    public LetUserChooseHandShapeState(Tally tally)
     {
         this.tally = tally;
     }

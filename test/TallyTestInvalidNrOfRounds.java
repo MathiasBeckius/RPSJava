@@ -1,7 +1,7 @@
 import static org.junit.Assert.assertThrows;
 import org.junit.Test;
 
-import rockpaperscissors.RPSTally;
+import rockpaperscissors.Tally;
 
 public class TallyTestInvalidNrOfRounds
 {
@@ -10,7 +10,7 @@ public class TallyTestInvalidNrOfRounds
     {
         assertThrows(
             IllegalArgumentException.class,
-            () -> new RPSTally(0));
+            () -> new Tally(0));
     }
 
     @Test
@@ -18,7 +18,7 @@ public class TallyTestInvalidNrOfRounds
     {
         assertThrows(
             IllegalArgumentException.class,
-            () -> new RPSTally(2));
+            () -> new Tally(2));
     }
 
     @Test
@@ -26,7 +26,7 @@ public class TallyTestInvalidNrOfRounds
     {
         assertThrows(
             IllegalArgumentException.class,
-            () -> new RPSTally(4));
+            () -> new Tally(4));
     }
 
     @Test
@@ -34,7 +34,7 @@ public class TallyTestInvalidNrOfRounds
     {
         assertThrows(
             IllegalArgumentException.class,
-            () -> new RPSTally(6));
+            () -> new Tally(6));
     }
 
     @Test
@@ -42,6 +42,6 @@ public class TallyTestInvalidNrOfRounds
     {
         assertThrows(
             IllegalArgumentException.class,
-            () -> new RPSTally(8));
+            () -> new Tally(8));
     }
 }

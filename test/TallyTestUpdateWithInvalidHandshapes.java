@@ -1,7 +1,7 @@
 import static org.junit.Assert.assertThrows;
 import org.junit.Test;
 
-import rockpaperscissors.RPSTally;
+import rockpaperscissors.Tally;
 import rockpaperscissors.HandShape;
 import rockpaperscissors.HandShapes;
 
@@ -10,7 +10,7 @@ public class TallyTestUpdateWithInvalidHandshapes
     @Test
     public void InvalidHandshapes()
     {
-        final RPSTally tally = new RPSTally(1);
+        final Tally tally = new Tally(1);
         InvalidHandshape invalidHand = new InvalidHandshape();
         HandShape hand = HandShapes.rock();
         // Expect exception for one invalid hand

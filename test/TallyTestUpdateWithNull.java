@@ -1,7 +1,7 @@
 import static org.junit.Assert.assertThrows;
 import org.junit.Test;
 
-import rockpaperscissors.RPSTally;
+import rockpaperscissors.Tally;
 import rockpaperscissors.HandShape;
 import rockpaperscissors.HandShapes;
 
@@ -10,7 +10,7 @@ public class TallyTestUpdateWithNull
     @Test
     public void Player1HandIsNull()
     {
-        final RPSTally tally = new RPSTally(1);
+        final Tally tally = new Tally(1);
         assertThrows(
             NullPointerException.class,
             () -> tally.update(null, HandShapes.rock()));
@@ -19,7 +19,7 @@ public class TallyTestUpdateWithNull
     @Test
     public void Player2HandIsNull()
     {
-        final RPSTally tally = new RPSTally(1);
+        final Tally tally = new Tally(1);
         assertThrows(
             NullPointerException.class,
             () -> tally.update(HandShapes.rock(), null));
@@ -28,7 +28,7 @@ public class TallyTestUpdateWithNull
     @Test
     public void BothHandsAreNull()
     {
-        final RPSTally tally = new RPSTally(1);
+        final Tally tally = new Tally(1);
         assertThrows(
             NullPointerException.class,
             () -> tally.update(null, null));

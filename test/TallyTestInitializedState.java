@@ -2,7 +2,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 import org.junit.Test;
 
-import rockpaperscissors.RPSTally;
+import rockpaperscissors.Tally;
 
 public class TallyTestInitializedState
 {
@@ -14,7 +14,7 @@ public class TallyTestInitializedState
         for (int i = 0; i < validNrOfRounds.length; i++)
         {
             nrOfRounds = validNrOfRounds[i];
-            RPSTally tally = new RPSTally(nrOfRounds);
+            Tally tally = new Tally(nrOfRounds);
             assertEquals(0, tally.scorePlayer1());
             assertEquals(0, tally.scorePlayer2());
             assertEquals(nrOfRounds, tally.remainingNrOfRounds());
@@ -26,7 +26,7 @@ public class TallyTestInitializedState
     {
         assertThrows(
             UnsupportedOperationException.class,
-            () -> new RPSTally(1).handPlayer1());
+            () -> new Tally(1).handPlayer1());
     }
 
     @Test
@@ -34,7 +34,7 @@ public class TallyTestInitializedState
     {
         assertThrows(
             UnsupportedOperationException.class,
-            () -> new RPSTally(1).handPlayer2());
+            () -> new Tally(1).handPlayer2());
     }
 }
 

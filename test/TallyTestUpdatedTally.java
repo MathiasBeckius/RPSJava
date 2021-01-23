@@ -2,14 +2,14 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 import org.junit.Test;
 
-import rockpaperscissors.RPSTally;
+import rockpaperscissors.Tally;
 import rockpaperscissors.HandShape;
 import rockpaperscissors.HandShapes;
 
 public class TallyTestUpdatedTally
 {
     private void assertPlayers(
-        RPSTally tally,
+        Tally tally,
         int p1Score, String p1Shape,
         int p2Score, String p2Shape)
     {
@@ -22,7 +22,7 @@ public class TallyTestUpdatedTally
     @Test
     public void TestGame()
     {
-        RPSTally tally = new RPSTally(7);
+        Tally tally = new Tally(7);
         HandShape rock = HandShapes.rock();
         HandShape scissors = HandShapes.scissors();
         HandShape paper = HandShapes.paper();
@@ -59,10 +59,10 @@ public class TallyTestUpdatedTally
     @Test
     public void UpdateTallyWhenGameIsFinishedIsNotAllowed()
     {
-        RPSTally tally = new RPSTally(1);
+        Tally tally = new Tally(1);
         HandShape rock = HandShapes.rock();
         HandShape scissors = HandShapes.scissors();
-        final RPSTally tallyNoMoreRounds = tally.update(rock, scissors);
+        final Tally tallyNoMoreRounds = tally.update(rock, scissors);
         assertThrows(
             UnsupportedOperationException.class,
             () -> tallyNoMoreRounds.update(rock, scissors));
@@ -71,7 +71,7 @@ public class TallyTestUpdatedTally
     @Test
     public void GameIsExtendedWhenItsADraw_1Round()
     {
-        RPSTally tally = new RPSTally(1);
+        Tally tally = new Tally(1);
         HandShape rock = HandShapes.rock();
         HandShape scissors = HandShapes.scissors();
         tally = tally.update(rock, rock);
@@ -83,7 +83,7 @@ public class TallyTestUpdatedTally
     @Test
     public void GameIsFinishedWhenOnePlayerHasWonMostRounds_7Rounds()
     {
-        RPSTally tally = new RPSTally(7);
+        Tally tally = new Tally(7);
         HandShape rock = HandShapes.rock();
         HandShape scissors = HandShapes.scissors();
         tally = tally.update(rock, scissors);
