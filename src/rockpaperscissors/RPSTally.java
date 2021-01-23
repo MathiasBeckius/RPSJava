@@ -1,6 +1,6 @@
 package rockpaperscissors;
 
-class RPSTally implements Tally
+public class RPSTally implements Tally
 {
     private int nrOfRounds, scoreP1, scoreP2;
     private String handP1, handP2;
@@ -39,16 +39,17 @@ class RPSTally implements Tally
         throw new IllegalArgumentException();
     }
 
-    public static RPSTally update(RPSTally tally, ResultOfRound result)
+    public RPSTally update(HandShape p1, HandShape p2)
     {
-        if (tally.remainingNrOfRounds() == 0)
+        if (remainingNrOfRounds() == 0)
             throw new UnsupportedOperationException();
 
-        int scoreP1 = tally.scorePlayer1() + result.scorePlayer1();
-        int scoreP2 = tally.scorePlayer2() + result.scorePlayer2();
+        ResultOfRound result = new ResultOfRound(p1, p2);
+        int scoreP1 = scorePlayer1() + result.scorePlayer1();
+        int scoreP2 = scorePlayer2() + result.scorePlayer2();
 
         int remainingNrOfRounds = RPSTally.calcRemainingNrOfRounds(
-            tally.remainingNrOfRounds(), scoreP1, scoreP2);
+            remainingNrOfRounds(), scoreP1, scoreP2);
 
         return new RPSTally(
             remainingNrOfRounds,

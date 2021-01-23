@@ -50,7 +50,7 @@ public final class Game
      */
     public static Tally updatedTally(Tally tally, HandShape p1, HandShape p2)
     {
-        return RPSTally.update(Game.rpsTally(tally), new ResultOfRound(p1, p2));
+        return Game.rpsTally(tally).update(p1, p2);
     }
 
     private static RPSTally rpsTally(Tally tally)

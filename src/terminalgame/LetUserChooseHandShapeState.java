@@ -2,19 +2,19 @@ package terminalgame;
 
 import java.util.Hashtable;
 import java.util.Random;
-import rockpaperscissors.Game;
 import rockpaperscissors.Tally;
+import rockpaperscissors.RPSTally;
 import rockpaperscissors.HandShapes;
 import rockpaperscissors.HandShape;
 import terminalgame.ui.TerminalUI;
 
 class LetUserChooseHandShapeState extends State
 {
-    private Tally tally;
+    private RPSTally tally;
 
     public LetUserChooseHandShapeState(Tally tally)
     {
-        this.tally = tally;
+        this.tally = (RPSTally)tally;
     }
 
     public State run(TerminalUI ui)
@@ -24,8 +24,7 @@ class LetUserChooseHandShapeState extends State
         if (playersHand == null)
             return this; // Remain in state, i.e. let user try again
 
-        return new PresentResultState(
-            Game.updatedTally(tally, playersHand, opponentsHand()));
+        return new PresentResultState(tally.update(playersHand, opponentsHand()));
     }
 
     private HandShape letUserChooseShape(TerminalUI ui)

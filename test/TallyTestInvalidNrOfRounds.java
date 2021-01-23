@@ -1,46 +1,47 @@
-import org.junit.Rule;
+import static org.junit.Assert.assertThrows;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
-import rockpaperscissors.Game;
+import rockpaperscissors.RPSTally;
 
 public class TallyTestInvalidNrOfRounds
 {
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
-
     @Test
     public void InvalidNrOfRounds_0()
     {
-        thrown.expect(IllegalArgumentException.class);
-        Game.newTally(0);
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> new RPSTally(0));
     }
 
     @Test
     public void InvalidNrOfRounds_2()
     {
-        thrown.expect(IllegalArgumentException.class);
-        Game.newTally(2);
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> new RPSTally(2));
     }
 
     @Test
     public void InvalidNrOfRounds_4()
     {
-        thrown.expect(IllegalArgumentException.class);
-        Game.newTally(4);
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> new RPSTally(4));
     }
 
     @Test
     public void InvalidNrOfRounds_6()
     {
-        thrown.expect(IllegalArgumentException.class);
-        Game.newTally(6);
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> new RPSTally(6));
     }
 
     @Test
     public void InvalidNrOfRounds_8()
     {
-        thrown.expect(IllegalArgumentException.class);
-        Game.newTally(8);
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> new RPSTally(8));
     }
 }

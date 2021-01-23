@@ -1,44 +1,30 @@
-import org.junit.Rule;
+import static org.junit.Assert.assertThrows;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
-import rockpaperscissors.Game;
-import rockpaperscissors.Tally;
+import rockpaperscissors.RPSTally;
 import rockpaperscissors.HandShape;
 import rockpaperscissors.HandShapes;
 
 public class TallyTestUpdateWithInvalidHandshapes
 {
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
-
     @Test
-    public void Player1HandIsInvalid()
+    public void InvalidHandshapes()
     {
-        Tally tally = Game.newTally(1);
+        final RPSTally tally = new RPSTally(1);
         InvalidHandshape invalidHand = new InvalidHandshape();
         HandShape hand = HandShapes.rock();
-        thrown.expect(IllegalArgumentException.class);
-        Game.updatedTally(tally, invalidHand, hand);
-    }
-
-    @Test
-    public void Player2HandIsInvalid()
-    {
-        Tally tally = Game.newTally(1);
-        InvalidHandshape invalidHand = new InvalidHandshape();
-        HandShape hand = HandShapes.rock();
-        thrown.expect(IllegalArgumentException.class);
-        Game.updatedTally(tally, hand, invalidHand);
-    }
-
-    @Test
-    public void BothHandsAreInvalid()
-    {
-        Tally tally = Game.newTally(1);
-        InvalidHandshape invalidHand = new InvalidHandshape();
-        thrown.expect(IllegalArgumentException.class);
-        Game.updatedTally(tally, invalidHand, invalidHand);
+        // Expect exception for one invalid hand
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> tally.update(invalidHand, hand));
+        // Expect exception in case the other hand is invalid
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> tally.update(invalidHand, hand));
+        // Expect exception for invalid hands
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> tally.update(invalidHand, invalidHand));
     }
 
     private class InvalidHandshape implements HandShape
