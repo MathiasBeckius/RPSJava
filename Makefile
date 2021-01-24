@@ -4,17 +4,19 @@ SRC_DIR=src
 TEST_DIR=test
 OUTPUT_DIR=.output
 
-#.SUFFIXES = .java .class
+.SUFFIXES = .java .class
 
 VPATH = \
   $(SRC_DIR)/rockpaperscissors \
-  $(OUTPUT_DIR/$(SRC_DIR)/rockpaperscissors
+  $(OUTPUT_DIR/$(SRC_DIR)/rockpaperscissors \
+  $(OUTPUT_DIR/$(SRC_DIR)/rockpaperscissors/rockpaperscissors
 
 CPATH=$(PWD)/$(OUTPUT_DIR):$(PWD)/$(OUTPUT_DIR)/rockpaperscissors:$(PWD)/$(OUTPUT_DIR)/terminalgame:$(PWD)/$(OUTPUT_DIR)/terminalgame/ui:$(PWD)/$(OUTPUT_DIR)/terminalgame/platform
 
-CPATH_BASE_DIR = $(PWD)/$(OUTPUT_DIR)/$(SRC_DIR)
+#CPATH_BASE_DIR = $(PWD)/$(OUTPUT_DIR)/$(SRC_DIR)
+CPATH_BASE_DIR = $(PWD)/$(SRC_DIR)
 
-CPATH = $(CPATH_BASE_DIR)/rockpaperscissors
+CPATH = $(CPATH_BASE_DIR):$(CPATH_BASE_DIR)/rockpaperscissors
 
 TEST_CPATHS=.:$(TEST_DIR)/junit-4.13.jar:$(TEST_DIR)/hamcrest-core-1.3.jar:$(TEST_DIR):$(CPATH)
 
@@ -25,12 +27,19 @@ TALLY_SRC = \
   $(SRC_DIR)/rockpaperscissors/Scissors.java \
   $(SRC_DIR)/rockpaperscissors/HandShapes.java \
   $(SRC_DIR)/rockpaperscissors/Tally.java
-TALLY_CLASS := $(TALLY_SRC:%=$(OUTPUT_DIR)/%.class)
+TALLY_CLASS := $(subst .java,.class, $(TALLY_SRC))
 
-$(OUTPUT_DIR)/%.java.class: %.java
-	@mkdir -p $(@D)
+HandShape.class: HandShape.java
+Rock.class: HandShape.class Rock.java
+Paper.class: HandShape.class Paper.java
+Scissors.class: HandShape.class Scissors.java
+HandShapes.class: HandShape.class Rock.class Paper.class Scissors.class
+
+$(TALLY_CLASS): %.class: %.java
+#	@mkdir -p $(@D)
 	@echo "Compiling $<"
-	@javac $< -d $(@D) -Xlint:deprecation -cp $(CPATH)
+	javac $< -Xlint:deprecation -cp $(CPATH)
+#	@javac $< -d $(@D) -Xlint:deprecation -cp $(CPATH)
 
 COMPILED_TESTS_TALLY = \
   $(TEST_DIR)/TallyTestInitializedState.class \
@@ -47,6 +56,8 @@ $(COMPILED_TESTS): %.class: %.java $(TALLY_SRC)
 	@java -cp $(TEST_CPATHS) org.junit.runner.JUnitCore $(basename $(@F)) >> $(OUTPUT_DIR)/test_log.txt
 
 TallyTests: $(TALLY_CLASS) $(COMPILED_TESTS_TALLY)
+
+.PHONY: test
 
 test: TallyTests
 
