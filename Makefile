@@ -20,7 +20,10 @@ TEST_CPATHS=.:$(TEST_DIR)/junit-4.13.jar:$(TEST_DIR)/hamcrest-core-1.3.jar:$(TES
 
 TALLY_SRC = \
   $(SRC_DIR)/rockpaperscissors/HandShape.java \
-  $(SRC_DIR)/rockpaperscissors/ComparableHandShape.java \
+  $(SRC_DIR)/rockpaperscissors/Rock.java \
+  $(SRC_DIR)/rockpaperscissors/Paper.java \
+  $(SRC_DIR)/rockpaperscissors/Scissors.java \
+  $(SRC_DIR)/rockpaperscissors/HandShapes.java \
   $(SRC_DIR)/rockpaperscissors/ResultOfRound.java \
   $(SRC_DIR)/rockpaperscissors/Tally.java
 TALLY_CLASS := $(TALLY_SRC:%=$(OUTPUT_DIR)/%.class)
@@ -30,28 +33,24 @@ $(OUTPUT_DIR)/%.java.class: %.java
 	@echo "Compiling $<"
 	@javac $< -d $(@D) -Xlint:deprecation -cp $(CPATH)
 
-TESTS = $(TEST_DIR)/TallyTestInitializedState.class
+COMPILED_TESTS_TALLY = \
+  $(TEST_DIR)/TallyTestInitializedState.class \
+  $(TEST_DIR)/TallyTestUpdatedTally.class \
+  $(TEST_DIR)/TallyTestInvalidNrOfRounds.class \
+  $(TEST_DIR)/TallyTestUpdateWithNull.class \
+  $(TEST_DIR)/TallyTestUpdateWithInvalidHandshapes.class
+COMPILED_TESTS = $(COMPILED_TESTS_TALLY)
 
-$(TESTS): %.class: %.java
+$(COMPILED_TESTS): %.class: %.java $(TALLY_SRC)
 	@echo "Compiling $<"
 	@javac $< -d $(@D) -Xlint:deprecation -cp $(TEST_CPATHS)
+	@echo "Running $(basename $(@F))"
+	@java -cp $(TEST_CPATHS) org.junit.runner.JUnitCore $(basename $(@F)) >> $(OUTPUT_DIR)/test_log.txt
 
-TallyTestInitializedState: $(TALLY_CLASS) $(TEST_DIR)/TallyTestInitializedState.class
-	@echo "Running $@"
-	@java -cp $(TEST_CPATHS) org.junit.runner.JUnitCore $@
+TallyTests: $(TALLY_CLASS) $(COMPILED_TESTS_TALLY)
 
-unit_tests: TallyTestInitializedState
-
-test_runner: rebuild
-	@echo "Compiling tests..."
-	@javac -cp $(TEST_CPATHS) $(TEST_DIR)/*.java -Xlint:deprecation
-	@echo "Running tests..."
-	@java -cp $(TEST_CPATHS) org.junit.runner.JUnitCore TallyTestInitializedState > /dev/null
-	@java -cp $(TEST_CPATHS) org.junit.runner.JUnitCore TallyTestUpdatedTally > /dev/null
-	@java -cp $(TEST_CPATHS) org.junit.runner.JUnitCore TallyTestInvalidNrOfRounds > /dev/null
-	@java -cp $(TEST_CPATHS) org.junit.runner.JUnitCore TallyTestUpdateWithNull > /dev/null
-	@java -cp $(TEST_CPATHS) org.junit.runner.JUnitCore TallyTestUpdateWithInvalidHandshapes > /dev/null
-	@echo "Tests were successfully executed!"
+PrintTestLog:
+	@cat $(OUTPUT_DIR)/test_log.txt
 
 clean:
 	@echo "Removing artefacts..."

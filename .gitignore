@@ -4,6 +4,9 @@
 # Vim
 *.swp
 
+# Build artefacts
+.output/**
+
 # Compiled class file
 *.class
 

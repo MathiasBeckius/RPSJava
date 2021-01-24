@@ -10,7 +10,7 @@ public final class HandShapes
      */
     public static HandShape rock()
     {
-        return (HandShape) new ComparableRock();
+        return new Rock();
     }
 
     /**
@@ -18,7 +18,7 @@ public final class HandShapes
      */
     public static HandShape paper()
     {
-        return (HandShape) new ComparablePaper();
+        return new Paper();
     }
 
     /**
@@ -26,6 +26,6 @@ public final class HandShapes
      */
     public static HandShape scissors()
     {
-        return (HandShape) new ComparableScissors();
+        return new Scissors();
     }
 }
