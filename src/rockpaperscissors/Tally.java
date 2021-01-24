@@ -82,9 +82,8 @@ public class Tally
         if (remainingNrOfRounds() == 0)
             throw new UnsupportedOperationException();
 
-        ResultOfRound result = new ResultOfRound(p1, p2);
-        int scoreP1 = scorePlayer1() + result.scorePlayer1();
-        int scoreP2 = scorePlayer2() + result.scorePlayer2();
+        int scoreP1 = scorePlayer1() + (oneBeatsAnother(p1, p2) ? 1 : 0);
+        int scoreP2 = scorePlayer2() + (oneBeatsAnother(p2, p1) ? 1 : 0);
 
         int remainingNrOfRounds = Tally.calcRemainingNrOfRounds(
             remainingNrOfRounds(), scoreP1, scoreP2);
@@ -92,7 +91,33 @@ public class Tally
         return new Tally(
             remainingNrOfRounds,
             scoreP1, scoreP2,
-            result.handPlayer1(), result.handPlayer2());
+            p1.name(), p2.name());
+    }
+
+    private boolean oneBeatsAnother(HandShape p1, HandShape p2)
+    {
+        validateHand(p1);
+        validateHand(p2);
+        if (p1 instanceof Rock)
+            return (p2 instanceof Scissors);
+        if (p1 instanceof Paper)
+            return (p2 instanceof Rock);
+        if (p1 instanceof Scissors)
+            return (p2 instanceof Paper);
+        return false;
+    }
+
+    private void validateHand(HandShape hand)
+    {
+        if (hand == null)
+            throw new NullPointerException();
+        if (hand instanceof Rock)
+            return;
+        if (hand instanceof Paper)
+            return;
+        if (hand instanceof Scissors)
+            return;
+        throw new IllegalArgumentException();
     }
 
     private static int calcRemainingNrOfRounds(

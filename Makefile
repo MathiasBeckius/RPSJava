@@ -24,7 +24,6 @@ TALLY_SRC = \
   $(SRC_DIR)/rockpaperscissors/Paper.java \
   $(SRC_DIR)/rockpaperscissors/Scissors.java \
   $(SRC_DIR)/rockpaperscissors/HandShapes.java \
-  $(SRC_DIR)/rockpaperscissors/ResultOfRound.java \
   $(SRC_DIR)/rockpaperscissors/Tally.java
 TALLY_CLASS := $(TALLY_SRC:%=$(OUTPUT_DIR)/%.class)
 
@@ -48,6 +47,8 @@ $(COMPILED_TESTS): %.class: %.java $(TALLY_SRC)
 	@java -cp $(TEST_CPATHS) org.junit.runner.JUnitCore $(basename $(@F)) >> $(OUTPUT_DIR)/test_log.txt
 
 TallyTests: $(TALLY_CLASS) $(COMPILED_TESTS_TALLY)
+
+test: TallyTests
 
 PrintTestLog:
 	@cat $(OUTPUT_DIR)/test_log.txt
