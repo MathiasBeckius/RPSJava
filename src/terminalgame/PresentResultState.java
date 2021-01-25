@@ -24,14 +24,8 @@ class PresentResultState extends State
 
     private String message()
     {
-        return
-            String.format(
-                "You chose %s, your opponent chose %s.\n",
-                tally.handPlayer1(),
-                tally.handPlayer2()) +
-            String.format(
-                "You have %d points, your opponent has %d\n\n",
-                tally.scorePlayer1(),
-                tally.scorePlayer2());
+        return String.format(
+            "You have %d points, your opponent has %d\n\n",
+            tally.scorePlayer1(), tally.scorePlayer2());
     }
 }

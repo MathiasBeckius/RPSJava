@@ -18,7 +18,6 @@ package rockpaperscissors;
 public class Tally
 {
     private int nrOfRounds, scoreP1, scoreP2;
-    private String handP1, handP2;
 
     /**
      * @brief Create a new tally.
@@ -28,47 +27,39 @@ public class Tally
      */
     public Tally(int rounds)
     {
-        this(Tally.validateNrOfRounds(rounds), 0, 0, null, null);
+        this(Tally.validateNrOfRounds(rounds), 0, 0);
     }
 
-    private Tally(
-        int rounds, int p1Score, int p2Score, String p1Hand, String p2Hand)
+    private Tally(int rounds, int p1Score, int p2Score)
     {
         nrOfRounds = rounds;
         scoreP1 = p1Score;
         scoreP2 = p2Score;
-        handP1 = p1Hand;
-        handP2 = p2Hand;
     }
-
-    /**
-     * Return last hand shape of Player 1.
-     * @throws UnsupportedOperationException If first round has not been played,
-     * i.e. no hands registered in tally.
-     */
-    public String handPlayer1()      { return Tally.checkRef(handP1); }
-
-    /**
-     * Return last hand shape of Player 2.
-     * @throws UnsupportedOperationException If first round has not been played,
-     * i.e. no hands registered in tally.
-     */
-    public String handPlayer2()      { return Tally.checkRef(handP2); }
 
     /**
      * Return current score for Player 1.
      */
-    public int scorePlayer1()        { return scoreP1; }
+    public int scorePlayer1()
+    {
+        return scoreP1;
+    }
 
     /**
      * Return current score for Player 2.
      */
-    public int scorePlayer2()        { return scoreP2; }
+    public int scorePlayer2()
+    {
+        return scoreP2;
+    }
 
     /**
      * Return remaining number of rounds.
      */
-    public int remainingNrOfRounds() { return nrOfRounds; }
+    public int remainingNrOfRounds()
+    {
+        return nrOfRounds;
+    }
 
     private static int validateNrOfRounds(int nr)
     {
@@ -88,10 +79,7 @@ public class Tally
         int remainingNrOfRounds = Tally.calcRemainingNrOfRounds(
             remainingNrOfRounds(), scoreP1, scoreP2);
 
-        return new Tally(
-            remainingNrOfRounds,
-            scoreP1, scoreP2,
-            p1.name(), p2.name());
+        return new Tally(remainingNrOfRounds, scoreP1, scoreP2);
     }
 
     private boolean oneBeatsAnother(HandShape p1, HandShape p2)
@@ -135,12 +123,5 @@ public class Tally
 
         // Keep playing
         return rounds;
-    }
-
-    private static String checkRef(String hand)
-    {
-        if (hand == null)
-            throw new UnsupportedOperationException();
-        return hand;
     }
 }

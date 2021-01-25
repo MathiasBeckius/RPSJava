@@ -20,21 +20,5 @@ public class TallyTestInitializedState
             assertEquals(nrOfRounds, tally.remainingNrOfRounds());
         }
     }
-
-    @Test
-    public void Player1HandOfNewTally()
-    {
-        assertThrows(
-            UnsupportedOperationException.class,
-            () -> new Tally(1).handPlayer1());
-    }
-
-    @Test
-    public void Player2HandOfNewTally()
-    {
-        assertThrows(
-            UnsupportedOperationException.class,
-            () -> new Tally(1).handPlayer2());
-    }
 }
 

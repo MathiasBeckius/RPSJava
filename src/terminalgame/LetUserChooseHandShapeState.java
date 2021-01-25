@@ -18,12 +18,23 @@ class LetUserChooseHandShapeState extends State
 
     public State run(TerminalUI ui)
     {
-        HandShape playersHand = letUserChooseShape(ui);
+        HandShape p1 = letUserChooseShape(ui);
         // If no match for user input...
-        if (playersHand == null)
+        if (p1 == null)
             return this; // Remain in state, i.e. let user try again
 
-        return new PresentResultState(tally.update(playersHand, opponentsHand()));
+        HandShape p2 = opponentsHand();
+
+        ui.write(message(p1, p2));
+
+        return new PresentResultState(tally.update(p1, p2));
+    }
+
+    private String message(HandShape p1, HandShape p2)
+    {
+        return String.format(
+            "You chose %s, your opponent chose %s.\n",
+            p1.name(), p2.name());
     }
 
     private HandShape letUserChooseShape(TerminalUI ui)

@@ -8,15 +8,10 @@ import rockpaperscissors.HandShapes;
 
 public class TallyTestUpdatedTally
 {
-    private void assertPlayers(
-        Tally tally,
-        int p1Score, String p1Shape,
-        int p2Score, String p2Shape)
+    private void assertScore(Tally tally, int p1Score, int p2Score)
     {
         assertEquals(p1Score, tally.scorePlayer1());
         assertEquals(p2Score, tally.scorePlayer2());
-        assertEquals(p1Shape, tally.handPlayer1());
-        assertEquals(p2Shape, tally.handPlayer2());
     }
 
     @Test
@@ -28,31 +23,31 @@ public class TallyTestUpdatedTally
         HandShape paper = HandShapes.paper();
 
         tally = tally.update(rock, scissors);
-        assertPlayers(tally, 1, rock.name(), 0, scissors.name());
+        assertScore(tally, 1, 0);
         assertEquals(6, tally.remainingNrOfRounds());
 
         tally = tally.update(rock, paper);
-        assertPlayers(tally, 1, rock.name(), 1, paper.name());
+        assertScore(tally, 1, 1);
         assertEquals(5, tally.remainingNrOfRounds());
 
         tally = tally.update(scissors, paper);
-        assertPlayers(tally, 2, scissors.name(), 1, paper.name());
+        assertScore(tally, 2, 1);
         assertEquals(4, tally.remainingNrOfRounds());
 
         tally = tally.update(scissors, rock);
-        assertPlayers(tally, 2, scissors.name(), 2, rock.name());
+        assertScore(tally, 2, 2);
         assertEquals(3, tally.remainingNrOfRounds());
 
         tally = tally.update(paper, paper);
-        assertPlayers(tally, 2, paper.name(), 2, paper.name());
+        assertScore(tally, 2, 2);
         assertEquals(2, tally.remainingNrOfRounds());
 
         tally = tally.update(rock, rock);
-        assertPlayers(tally, 2, rock.name(), 2, rock.name());
+        assertScore(tally, 2, 2);
         assertEquals(1, tally.remainingNrOfRounds());
 
         tally = tally.update(scissors, paper);
-        assertPlayers(tally, 3, scissors.name(), 2, paper.name());
+        assertScore(tally, 3, 2);
         assertEquals(0, tally.remainingNrOfRounds());
     }
 

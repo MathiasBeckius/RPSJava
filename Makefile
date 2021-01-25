@@ -4,6 +4,8 @@ SRC_DIR=src
 TEST_DIR=test
 OUTPUT_DIR=.output
 
+.PHONY: TallyTests
+
 .SUFFIXES = .java .class
 
 VPATH = \
@@ -56,8 +58,6 @@ $(COMPILED_TESTS): %.class: %.java $(TALLY_SRC)
 	@java -cp $(TEST_CPATHS) org.junit.runner.JUnitCore $(basename $(@F)) >> $(OUTPUT_DIR)/test_log.txt
 
 TallyTests: $(TALLY_CLASS) $(COMPILED_TESTS_TALLY)
-
-.PHONY: test
 
 test: TallyTests
 
