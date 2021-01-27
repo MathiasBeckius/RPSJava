@@ -10,10 +10,9 @@ public class TallyTestInitializedState
     public void InitializedStateOfNewTally()
     {
         int validNrOfRounds[] = {1, 3, 5, 7};
-        int nrOfRounds;
         for (int i = 0; i < validNrOfRounds.length; i++)
         {
-            nrOfRounds = validNrOfRounds[i];
+            int nrOfRounds = validNrOfRounds[i];
             Tally tally = new Tally(nrOfRounds);
             assertEquals(0, tally.scorePlayer1());
             assertEquals(0, tally.scorePlayer2());

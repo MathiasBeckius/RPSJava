@@ -6,42 +6,15 @@ import rockpaperscissors.Tally;
 public class TallyTestInvalidNrOfRounds
 {
     @Test
-    public void InvalidNrOfRounds_0()
+    public void InvalidNrOfRounds()
     {
-        assertThrows(
-            IllegalArgumentException.class,
-            () -> new Tally(0));
-    }
-
-    @Test
-    public void InvalidNrOfRounds_2()
-    {
-        assertThrows(
-            IllegalArgumentException.class,
-            () -> new Tally(2));
-    }
-
-    @Test
-    public void InvalidNrOfRounds_4()
-    {
-        assertThrows(
-            IllegalArgumentException.class,
-            () -> new Tally(4));
-    }
-
-    @Test
-    public void InvalidNrOfRounds_6()
-    {
-        assertThrows(
-            IllegalArgumentException.class,
-            () -> new Tally(6));
-    }
-
-    @Test
-    public void InvalidNrOfRounds_8()
-    {
-        assertThrows(
-            IllegalArgumentException.class,
-            () -> new Tally(8));
+        int invalidNrOfRounds[] = {-1, 0, 2, 4, 6, 8, 10};
+        for (int i = 0; i < invalidNrOfRounds.length; i++)
+        {
+            final int nrOfRounds = invalidNrOfRounds[i];
+            assertThrows(
+                IllegalArgumentException.class,
+                () -> new Tally(nrOfRounds));
+        }
     }
 }

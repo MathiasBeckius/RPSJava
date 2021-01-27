@@ -36,6 +36,7 @@ Rock.class: HandShape.class Rock.java
 Paper.class: HandShape.class Paper.java
 Scissors.class: HandShape.class Scissors.java
 HandShapes.class: HandShape.class Rock.class Paper.class Scissors.class
+Tally.class: HandShape.class Rock.class Paper.class Scissors.class Tally.java
 
 $(TALLY_CLASS): %.class: %.java
 #	@mkdir -p $(@D)
@@ -57,7 +58,7 @@ $(COMPILED_TESTS): %.class: %.java $(TALLY_SRC)
 	@echo "Running $(basename $(@F))"
 	@java -cp $(TEST_CPATHS) org.junit.runner.JUnitCore $(basename $(@F)) >> $(OUTPUT_DIR)/test_log.txt
 
-TallyTests: $(TALLY_CLASS) $(COMPILED_TESTS_TALLY)
+TallyTests: Tally.class HandShapes.class HandShape.class $(COMPILED_TESTS_TALLY)
 
 test: TallyTests
 
