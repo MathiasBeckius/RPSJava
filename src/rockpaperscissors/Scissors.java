@@ -1,6 +1,12 @@
 package rockpaperscissors;
 
-class Scissors implements HandShape
+class Scissors extends ScissorsShapedHand
 {
     public String name() { return "scissors"; }
+
+    public boolean beats(HandShape hand)
+    {
+        validate(hand);
+        return hand instanceof PaperShapedHand;
+    }
 }

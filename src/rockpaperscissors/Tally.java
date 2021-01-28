@@ -15,7 +15,7 @@ package rockpaperscissors;
  * Check if the game has ended:
  *      if (tally.remainingNrOfRounds() == 0)
  */
-public class Tally
+final public class Tally
 {
     private int nrOfRounds, scoreP1, scoreP2;
 
@@ -68,44 +68,33 @@ public class Tally
         throw new IllegalArgumentException();
     }
 
-    public Tally update(HandShape p1, HandShape p2)
+    public Tally player1Wins()
+    {
+        return updateTally(1, 0);
+    }
+
+    public Tally player2Wins()
+    {
+        return updateTally(0, 1);
+    }
+
+    public Tally nobodyWins()
+    {
+        return updateTally(0, 0);
+    }
+
+    private Tally updateTally(int pointsP1, int pointsP2)
     {
         if (remainingNrOfRounds() == 0)
             throw new UnsupportedOperationException();
 
-        int scoreP1 = scorePlayer1() + (oneBeatsAnother(p1, p2) ? 1 : 0);
-        int scoreP2 = scorePlayer2() + (oneBeatsAnother(p2, p1) ? 1 : 0);
+        int scoreP1 = scorePlayer1() + pointsP1;
+        int scoreP2 = scorePlayer2() + pointsP2;
 
         int remainingNrOfRounds = Tally.calcRemainingNrOfRounds(
             remainingNrOfRounds(), scoreP1, scoreP2);
 
         return new Tally(remainingNrOfRounds, scoreP1, scoreP2);
-    }
-
-    private boolean oneBeatsAnother(HandShape p1, HandShape p2)
-    {
-        validateHand(p1);
-        validateHand(p2);
-        if (p1 instanceof Rock)
-            return (p2 instanceof Scissors);
-        if (p1 instanceof Paper)
-            return (p2 instanceof Rock);
-        if (p1 instanceof Scissors)
-            return (p2 instanceof Paper);
-        return false;
-    }
-
-    private void validateHand(HandShape hand)
-    {
-        if (hand == null)
-            throw new NullPointerException();
-        if (hand instanceof Rock)
-            return;
-        if (hand instanceof Paper)
-            return;
-        if (hand instanceof Scissors)
-            return;
-        throw new IllegalArgumentException();
     }
 
     private static int calcRemainingNrOfRounds(

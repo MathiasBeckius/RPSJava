@@ -22,21 +22,18 @@ CPATH = $(CPATH_BASE_DIR):$(CPATH_BASE_DIR)/rockpaperscissors
 
 TEST_CPATHS=.:$(TEST_DIR)/junit-4.13.jar:$(TEST_DIR)/hamcrest-core-1.3.jar:$(TEST_DIR):$(CPATH)
 
-TALLY_SRC = \
-  $(SRC_DIR)/rockpaperscissors/HandShape.java \
-  $(SRC_DIR)/rockpaperscissors/Rock.java \
-  $(SRC_DIR)/rockpaperscissors/Paper.java \
-  $(SRC_DIR)/rockpaperscissors/Scissors.java \
-  $(SRC_DIR)/rockpaperscissors/HandShapes.java \
-  $(SRC_DIR)/rockpaperscissors/Tally.java
+TALLY_SRC := $(shell find $(SRC_DIR)/rockpaperscissors -name '*.java')
 TALLY_CLASS := $(subst .java,.class, $(TALLY_SRC))
 
 HandShape.class: HandShape.java
-Rock.class: HandShape.class Rock.java
-Paper.class: HandShape.class Paper.java
-Scissors.class: HandShape.class Scissors.java
+RockShapedHand.class: HandShape.class
+PaperShapedHand.class: HandShape.class
+ScissorsShapedHand.class: HandShape.class
+Rock.class: RockShapedHand.class Rock.java
+Paper.class: PaperShapedHand.class Paper.java
+Scissors.class: ScissorsShapedHand.class Scissors.java
 HandShapes.class: HandShape.class Rock.class Paper.class Scissors.class
-Tally.class: HandShape.class Rock.class Paper.class Scissors.class Tally.java
+Tally.class: Tally.java
 
 $(TALLY_CLASS): %.class: %.java
 #	@mkdir -p $(@D)
@@ -47,18 +44,16 @@ $(TALLY_CLASS): %.class: %.java
 COMPILED_TESTS_TALLY = \
   $(TEST_DIR)/TallyTestInitializedState.class \
   $(TEST_DIR)/TallyTestUpdatedTally.class \
-  $(TEST_DIR)/TallyTestInvalidNrOfRounds.class \
-  $(TEST_DIR)/TallyTestUpdateWithNull.class \
-  $(TEST_DIR)/TallyTestUpdateWithInvalidHandshapes.class
+  $(TEST_DIR)/TallyTestInvalidNrOfRounds.class
 COMPILED_TESTS = $(COMPILED_TESTS_TALLY)
+
+TallyTests: Tally.class HandShapes.class HandShape.class $(COMPILED_TESTS_TALLY)
 
 $(COMPILED_TESTS): %.class: %.java $(TALLY_SRC)
 	@echo "Compiling $<"
 	@javac $< -d $(@D) -Xlint:deprecation -cp $(TEST_CPATHS)
 	@echo "Running $(basename $(@F))"
 	@java -cp $(TEST_CPATHS) org.junit.runner.JUnitCore $(basename $(@F)) >> $(OUTPUT_DIR)/test_log.txt
-
-TallyTests: Tally.class HandShapes.class HandShape.class $(COMPILED_TESTS_TALLY)
 
 test: TallyTests
 
